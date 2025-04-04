@@ -1,134 +1,190 @@
-<div class="parent">
-    <div class="overlay">
-        <div class="popup-container">
-            <header>
-                <div class="logo">
-                    <img src="https://api.iconify.design/mdi:shaker-outline.svg" alt="Logo" class="logo-icon">
-                    <span>Title</span>
-                </div>
-                <!-- <nav>
-                    <a href="#" class="nav-icon">
-                        <img src="https://api.iconify.design/mdi:close.svg" alt="Close" class="close-icon">
-                    </a>
-                </nav> -->
-            </header>
-
-            <main>
-                <div class="form-container">
-                    @if (!toggleForm){
-                        <div id="loginForm" class="form active">
-                            <div class="header">
-                                <h1>Welcome Back</h1>
-                                <p class="subtitle">Sign in to continue to your account</p>
-                            </div>
-    
-                            <form id="signupForm">
-                                <div class="input-group">
-                                    <img src="https://api.iconify.design/mdi:email-outline.svg" alt="Email" class="input-icon">
-                                    <input type="email" id="email" placeholder="Your Email" required>
-                                </div>
-    
-                                <div class="input-group">
-                                    <img src="https://api.iconify.design/mdi:lock-outline.svg" alt="Password" class="input-icon">
-                                    <input type="password" id="password" placeholder="Your Password" required>
-                                </div>
-    
-                                <div class="remember-forgot">
-                                    <label class="remember">
-                                        <input type="checkbox" id="remember">
-                                        <span>Remember me</span>
-                                    </label>
-                                    <a href="#" class="forgot-link" data-form="forgotForm">Forgot Password?</a>
-                                </div>
-    
-                                <button type="submit" class="signup-btn">Sign In</button>
-    
-                                <div class="divider">
-                                    <span>or continue with</span>
-                                </div>
-    
-                                <button type="button" class="google-btn">
-                                    <img src="https://api.iconify.design/flat-color-icons:google.svg" alt="Google">
-                                    Google
-                                </button>
-    
-                                <p class="login-link">
-                                    Don't have an account? <a (click)="toggleForm = true" class="switch-form" data-form="registerForm">Sign Up</a>
-                                </p>
-                            </form>
-                        </div>
-                    }
-                    @else{
-                        <div id="registerForm" class="form active">
-                            <div class="header">
-                                <h1>Create Account</h1>
-                                <p class="subtitle">Sign up to get started</p>
-                            </div>
-    
-                            <form id="registerFormElement">
-                                <div class="input-group">
-                                    <img src="https://api.iconify.design/mdi:account-outline.svg" alt="Name" class="input-icon">
-                                    <input type="text" id="name" placeholder="Your Name" required>
-                                </div>
-    
-                                <div class="input-group">
-                                    <img src="https://api.iconify.design/mdi:email-outline.svg" alt="Email" class="input-icon">
-                                    <input type="email" id="registerEmail" placeholder="Your Email" required>
-                                </div>
-
-                                <div class="input-group">
-                                    <img src="https://api.iconify.design/mdi:phone.svg" alt="Contact" class="input-icon">
-                                    <input type="text" id="contact" placeholder="Your Contact No" required>
-                                </div>
-    
-                                <div class="input-group">
-                                    <img src="https://api.iconify.design/mdi:lock-outline.svg" alt="Password" class="input-icon">
-                                    <input type="password" id="registerPassword" placeholder="Create Password" required>
-                                </div>
-    
-                                <div class="input-group">
-                                    <img src="https://api.iconify.design/mdi:lock-check-outline.svg" alt="Confirm Password" class="input-icon">
-                                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
-                                </div>
-    
-                                <button type="submit" class="signup-btn">Create Account</button>
-    
-                                <div class="divider">
-                                    <span>or continue with</span>
-                                </div>
-    
-                                <button type="button" class="google-btn">
-                                    <img src="https://api.iconify.design/flat-color-icons:google.svg" alt="Google">
-                                    Google
-                                </button>
-    
-                                <p class="login-link">
-                                    Already have an account? <a (click)="toggleForm = false" class="switch-form" data-form="loginForm">Sign In</a>
-                                </p>
-                            </form>
-                        </div>
-                    }
-                    
-                    <div id="forgotForm" class="form">
-                        <h1>Reset Password</h1>
-                        <p class="subtitle">Enter your email to reset your password</p>
-
-                        <form id="resetPasswordForm">
-                            <div class="input-group">
-                                <img src="https://api.iconify.design/mdi:email-outline.svg" alt="Email" class="input-icon">
-                                <input type="email" id="resetEmail" placeholder="Your Email" required>
-                            </div>
-
-                            <button type="submit" class="signup-btn">Send Reset Link</button>
-
-                            <p class="login-link">
-                                Remember your password? <a href="#" class="switch-form" data-form="loginForm">Sign In</a>
-                            </p>
-                        </form>
+@if (!checkLogin()) {
+    <div class="parent">
+        <div class="overlay">
+            <div class="popup-container">
+                <header>
+                    <div class="logo">
+                        <img src="https://api.iconify.design/mdi:shaker-outline.svg" alt="Logo" class="logo-icon">
+                        <span>Title</span>
                     </div>
-                </div>
-            </main>
+                    <!-- <nav>
+                        <a href="#" class="nav-icon">
+                            <img src="https://api.iconify.design/mdi:close.svg" alt="Close" class="close-icon">
+                        </a>
+                    </nav> -->
+                </header>
+
+                <main>
+                    <div class="form-container">
+                        @if (toggleForm == "login"){
+                            <div id="loginForm" class="form active">
+                                <div class="header">
+                                    <h1>Welcome Back</h1>
+                                    <p class="subtitle">Sign in to continue to your account</p>
+                                </div>
+        
+                                <form id="signupFormElement" (ngSubmit)="onLogin()" #loginForm="ngForm">
+                                    <div class="input-group">
+                                        <img src="https://api.iconify.design/mdi:email-outline.svg" alt="Email" class="input-icon">
+                                        <input 
+                                            type="email" 
+                                            id="email" 
+                                            name="email"
+                                            [(ngModel)]="loginObj.email"
+                                            placeholder="Your Email" 
+                                            required>
+                                    </div>
+        
+                                    <div class="input-group">
+                                        <img src="https://api.iconify.design/mdi:lock-outline.svg" alt="Password" class="input-icon">
+                                        <input 
+                                            type="password" 
+                                            id="password" 
+                                            name="password"
+                                            [(ngModel)]="loginObj.password"
+                                            placeholder="Your Password" 
+                                            required>
+                                    </div>
+        
+                                    <div class="remember-forgot">
+                                        <label class="remember">
+                                            <input type="checkbox" id="remember">
+                                            <span>Remember me</span>
+                                        </label>
+                                        <a (click)="toggleForm = 'forgetPw'" class="forgot-link" data-form="forgotForm">Forgot Password?</a>
+                                    </div>
+
+                                    <!-- Error Message -->
+                                    <div *ngIf="isError && loginForm.submitted" class="message error">
+                                        {{ errorMsg }}
+                                    </div>
+        
+                                    <button type="submit" class="signup-btn">Sign In</button>
+        
+                                    <div class="divider">
+                                        <span>or continue with</span>
+                                    </div>
+        
+                                    <button type="button" class="google-btn">
+                                        <img src="https://api.iconify.design/flat-color-icons:google.svg" alt="Google">
+                                        Google
+                                    </button>
+        
+                                    <p class="login-link">
+                                        Don't have an account? <a (click)="toggleForm = 'register'" class="switch-form" data-form="registerForm">Sign Up</a>
+                                    </p>
+                                </form>
+                            </div>
+                        }
+                        @else if (toggleForm == "register"){
+                            <div id="registerForm" class="form active">
+                                <div class="header">
+                                    <h1>Create Account</h1>
+                                    <p class="subtitle">Sign up to get started</p>
+                                </div>
+        
+                                <form id="registerFormElement" (ngSubmit)="onRegister()" #registerForm="ngForm">
+                                    <div class="input-group">
+                                        <img src="https://api.iconify.design/mdi:account-outline.svg" alt="User Icon" class="input-icon">
+                                        <input 
+                                            type="text" 
+                                            id="fullName" 
+                                            name="fullName" 
+                                            [(ngModel)]="registerObj.fullName" 
+                                            placeholder="Your Name" 
+                                            required>
+                                    </div>
+                                
+                                    <div class="input-group">
+                                        <img src="https://api.iconify.design/mdi:email-outline.svg" alt="Email Icon" class="input-icon">
+                                        <input 
+                                            type="email" 
+                                            id="registerEmail" 
+                                            name="email" 
+                                            [(ngModel)]="registerObj.email" 
+                                            placeholder="Your Email" 
+                                            required>
+                                    </div>
+                                
+                                    <div class="input-group">
+                                        <img src="https://api.iconify.design/mdi:phone.svg" alt="Phone Icon" class="input-icon">
+                                        <input 
+                                            type="text" 
+                                            id="contact" 
+                                            name="mobile" 
+                                            [(ngModel)]="registerObj.mobile" 
+                                            placeholder="Your Contact No" 
+                                            required>
+                                    </div>
+                                
+                                    <div class="input-group">
+                                        <img src="https://api.iconify.design/mdi:lock-outline.svg" alt="Password Icon" class="input-icon">
+                                        <input 
+                                            type="password" 
+                                            id="registerPassword" 
+                                            name="password" 
+                                            [(ngModel)]="registerObj.password" 
+                                            placeholder="Create Password" 
+                                            required>
+                                    </div>
+                                
+                                    <div class="input-group">
+                                        <img src="https://api.iconify.design/mdi:lock-check-outline.svg" alt="Confirm Password Icon" class="input-icon">
+                                        <input 
+                                            type="password" 
+                                            id="confirmPassword" 
+                                            name="confirmPassword" 
+                                            [(ngModel)]="confirmPassword" 
+                                            placeholder="Confirm Password" 
+                                            required>
+                                    </div>
+                                
+                                    <!-- Error Message -->
+                                    <div *ngIf="isError && registerForm.submitted" class="message error">
+                                        {{ errorMsg }}
+                                    </div>
+                                
+                                    <button type="submit" class="signup-btn">Create Account</button>
+                                
+                                    <div class="divider">
+                                        <span>or continue with</span>
+                                    </div>
+                                
+                                    <button type="button" class="google-btn">
+                                        <img src="https://api.iconify.design/flat-color-icons:google.svg" alt="Google Login Icon">
+                                        Google
+                                    </button>
+                                
+                                    <p class="login-link">
+                                        Already have an account? <a (click)="toggleForm = 'login'" class="switch-form" data-form="loginForm">Sign In</a>
+                                    </p>
+                                </form>
+                            </div>
+                        }
+                        @else {
+                            <div id="forgotForm" class="form active">
+                                <div class="header">
+                                    <h1>Reset Password</h1>
+                                    <p class="subtitle">Enter your email to reset your password</p>
+                                </div>
+        
+                                <form id="resetPasswordForm">
+                                    <div class="input-group">
+                                        <img src="https://api.iconify.design/mdi:email-outline.svg" alt="Email" class="input-icon">
+                                        <input type="email" id="resetEmail" placeholder="Your Email" required>
+                                    </div>
+        
+                                    <button type="submit" class="signup-btn">Send Reset Link</button>
+        
+                                    <p class="login-link">
+                                        Remember your password? <a (click)="toggleForm = 'login'" class="switch-form" data-form="loginForm">Sign In</a>
+                                    </p>
+                                </form>
+                            </div>
+                        }
+                    </div>
+                </main>
+            </div>
         </div>
     </div>
-    <script src="script.js"></script>
-</div>
+}

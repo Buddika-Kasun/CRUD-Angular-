@@ -29,6 +29,7 @@ export class LoginComponent {
     fullName: '',
     mobile: '',
     createdAt: new Date(),
+    updatedAt: new Date(),
   };
 
   confirmPassword: string = '';
@@ -83,6 +84,7 @@ export class LoginComponent {
         fullName: '',
         mobile: '',
         createdAt: new Date(),
+        updatedAt: new Date(),
       };
       this.toggleForm = "login";
     }, (err: any) => {

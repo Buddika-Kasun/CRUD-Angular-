@@ -14,6 +14,10 @@ export class HomeComponent {
 
   router = inject(Router);
 
+  user: any = JSON.parse(localStorage.getItem('user') || '{}');
+  userName: string = this.user?.fullName || '';
+
+
   onLogout = () => {
     localStorage.removeItem('user');
     this.router.navigate(['/login']);

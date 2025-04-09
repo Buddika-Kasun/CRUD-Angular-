@@ -19,7 +19,7 @@ th {
     justify-content: space-between;
     gap: 20px; */
     padding: 6px;
-    max-width: 70px;
+    max-width: 100px;
 }
 
 .button-container button {
@@ -54,6 +54,11 @@ th {
     padding-top: 60px;
     display: block;
     position: relative;
+}
+
+.model-button-container {
+    display: flex;
+    justify-content: space-evenly;
 }
 
 /* Close Button */
